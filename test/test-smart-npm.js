@@ -11,8 +11,19 @@ var root = path.resolve(path.dirname(__dirname));
 
 describe('smartNpm', function () {
 
-  var cnpmCmd = path.join(root, 'node_modules', '.bin', 'cnpm'),
-    npmCmd = path.join(root, 'node_modules', '.bin', 'npm'),
+  function findNodeModuleBin(module, bin) {
+    var main = require.resolve(module);
+    var parts = main.split(path.sep);
+    bin = bin || module;
+    var ref = parts.pop();
+    while (ref && (module !== ref || parts[parts.length - 1] !== 'node_modules')) {
+      ref = parts.pop();
+    }
+    return path.join(parts.join(path.sep), '.bin', bin);
+  }
+
+  var cnpmCmd = findNodeModuleBin('cnpm'),
+    npmCmd = findNodeModuleBin('npm'),
     cnpmSubCmd = 'install',
     npmSubCmd = npmCmds[0],
     npmRegistry = '--registry=https://registry.npmjs.org/';
@@ -105,7 +116,6 @@ describe('smartNpm', function () {
         done();
       });
     });
-
 
   });
 });

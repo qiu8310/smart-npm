@@ -1,7 +1,7 @@
 {
   "name": "smart-npm",
   "description": "Auto switch registry according your npm command.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/qiu8310/smart-npm",
   "bugs": "https://github.com/qiu8310/smart-npm/issues",
   "license": "MIT",
@@ -25,7 +25,7 @@
     "taobao"
   ],
   "dependencies": {
-    "cnpm": "^3.0.0",
+    "cnpm": "https://github.com/qiu8310/cnpm.git#3.0.1",
     "cross-spawn": "^0.2.8",
     "npm": "^2.7.5"
   },
