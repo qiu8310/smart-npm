@@ -20,8 +20,6 @@ git add . -A
 git commit -m "publish docs"
 git push origin gh-pages --force
 
-cd $dir
-
 
 
 
