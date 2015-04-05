@@ -7,7 +7,11 @@
 [![Coverage Status][coveralls-image]][coveralls-url]
 
 
-根据你的 npm 命令自动切换 registry. [jsdoc 文档](http://qiu8310.github.io/smart-npm)
+根据你的 npm 命令自动切换 registry. 
+
+[jsdoc 生成的文档](http://qiu8310.github.io/smart-npm)
+
+[github 地址](https://github.com/qiu8310/smart-npm)
 
 
 ## 背景
