@@ -1,0 +1,20 @@
+language: node_js
+env: CI=true
+sudo: false
+
+
+#branches:
+#  only:
+#    - master
+
+node_js:
+  - "iojs"
+  - "0.12"
+  - "0.11"
+  - "0.10"
+after_script:
+  - npm run coveralls
+notifications:
+  email:
+    - qiuzhongleiabc@126.com
+
