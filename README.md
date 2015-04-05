@@ -20,7 +20,7 @@
 
 1. `cnpm` 的仓库只是 `npm` 仓库的一个拷贝，它不承担 `publish` 工作，所以你[用 `cnpm publish` 命令会执行失败的](https://github.com/cnpm/cnpm/issues/23#issuecomment-87561615)
 
-2. 不仅是 `publish` 会执行失败，其它的需要注册用户(`npm adduser`)、或者修改 package 状态等命令都无法用 `cnpm` 
+2. 不仅是 `publish` 会执行失败，其它的需要注册用户(`npm adduser`)、或者[修改 package 状态等命令](http://qiu8310.github.io/smart-npm/global.html#npm-cmds)都无法用 `cnpm` 
 
 3. 有很多 `npm` 包都集成了 `npm install`，比如 [yeoman][yeoman] 的所有 `generators` ，在最后基本都会
   调用 `npm install`，可以看其[源码](https://github.com/yeoman/generator/blob/v0.18.10/lib/actions/install.js#L147-159)，
@@ -92,9 +92,9 @@ __特定 loglevel 的缩写信息__
 
 ## Reference
 
-- [npm][npm]
-- [all npm cli](https://docs.npmjs.com/cli/access)
-- [cnpm][cnpm]
+- [npm 官网][npm]
+- [所有 npm 支持的子命令](https://docs.npmjs.com/cli/access)
+- [cnpm 官网][cnpm]
 
 
 
