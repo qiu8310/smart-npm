@@ -77,7 +77,13 @@ describe('smartNpm', function () {
 
       assert.deepEqual(parseArgs([cnpmSubCmd].concat(userArgs)).args, [cnpmSubCmd].concat(userArgs));
       assert.deepEqual(parseArgs(userArgs.concat(cnpmSubCmd)).args, userArgs.concat(cnpmSubCmd));
-    })
+    });
+
+    it('should return npm version when use -v or --version, not cnpm version', function() {
+      var arg1 = ['-v'], arg2 = ['--version', 'some', 'other'];
+      assert.deepEqual(parseArgs(arg1).cmd, npmCmd);
+      assert.deepEqual(parseArgs(arg2).cmd, npmCmd);
+    });
   });
 
   context('cli', function() {

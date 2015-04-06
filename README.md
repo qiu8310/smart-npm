@@ -36,7 +36,7 @@
 __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `npm install` 时自动从国内的镜像下载，而在我们使用 `npm publish` 又能发布到官方的 registry 上！__
 
 
-###  就让 `smart-npm` 来为你完成
+###  就让 `smart-npm` 来为你完成吧！
 
 
 
