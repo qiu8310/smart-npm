@@ -1,6 +1,6 @@
 'use strict';
-
 var gulp   = require('gulp');
+
 var plugins = require('gulp-load-plugins')();
 
 var paths = {
@@ -26,7 +26,7 @@ gulp.task('lint', function () {
     .pipe(plugins.jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('istanbul', function (cb) {
+gulp.task('istanbul', function (done) {
   gulp.src(paths.source)
     .pipe(plugins.istanbul()) // Covering files
     .pipe(plugins.istanbul.hookRequire()) // Force `require` to return covered files
@@ -37,7 +37,7 @@ gulp.task('istanbul', function (cb) {
         .pipe(plugins.istanbul.writeReports()) // Creating the reports after tests runned
         .on('finish', function() {
           process.chdir(__dirname);
-          cb();
+          done();
         });
     });
 });
@@ -51,11 +51,21 @@ gulp.task('bump', ['test'], function () {
 });
 
 gulp.task('watch', ['test'], function () {
-  gulp.watch(paths.watch, ['test']);
+  gulp.watch(paths.watch, function() {
+    require('child_process').spawn('gulp', ['test'], {
+      env: process.env,
+      cwd: process.cwd(),
+      stdio: [
+        process.stdin,
+        process.stdout,
+        process.stderr
+      ]
+    });
+  });
 });
 
 gulp.task('test', ['lint', 'istanbul']);
 
 gulp.task('release', ['bump']);
 
-gulp.task('default', ['test']);
+gulp.task('default', ['watch']);

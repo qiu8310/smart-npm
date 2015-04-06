@@ -1,5 +1,4 @@
 'use strict';
-
 var path = require('path');
 var spawn = require('cross-spawn');
 var assert = require('should');
