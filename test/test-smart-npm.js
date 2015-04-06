@@ -89,6 +89,10 @@ describe('smartNpm', function () {
         cb(status, stdout, singal);
       }
 
+      if (process.env.CI) {
+        args.push('--registry=https://registry.npm.org/');
+      }
+
       var child = spawn('node', args).on('exit', handler);
 
       child.stdout.on('data', function (data) {
