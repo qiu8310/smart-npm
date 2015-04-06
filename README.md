@@ -9,6 +9,8 @@
 
 根据你的 npm 命令自动切换 registry. 
 
+
+
 [jsdoc 生成的文档](http://qiu8310.github.io/smart-npm)
 
 [github 地址](https://github.com/qiu8310/smart-npm)
@@ -16,31 +18,38 @@
 
 ## 背景
 
-在中国，要下载 [npm][npm] 包非常慢，如果使用 [cnpm][cnpm] 下载包就非常快了，感觉很爽，但是 `cnpm` 也有几个大问题：
+__前言，这里所说的 `cnpm`，是 `cnpm` 客户端命令，和 `cnpm` 的服务端（私有仓库）没关系，如果你有用它的私有仓库，那可以忽略 `smart-npm`__ 
 
-1. `cnpm` 的仓库只是 `npm` 仓库的一个拷贝，它不承担 `publish` 工作，所以你[用 `cnpm publish` 命令会执行失败的](https://github.com/cnpm/cnpm/issues/23#issuecomment-87561615)
-
-2. 不仅是 `publish` 会执行失败，其它的需要注册用户(`npm adduser`)、或者[修改 package 状态等命令](http://qiu8310.github.io/smart-npm/global.html#npm-cmds)都无法用 `cnpm` 
-
-3. 有很多 `npm` 包都集成了 `npm install`，比如 [yeoman][yeoman] 的所有 `generators` ，在最后基本都会
-  调用 `npm install`，可以看其[源码](https://github.com/yeoman/generator/blob/v0.18.10/lib/actions/install.js#L147-159)，
-  这种情况下使用 `cnpm` 完全无效，必须中断操作，然后自己手动运行 `cnpm install`，或者在运行 `yo [generator]` 时就指定 `--skip-install`，
-  这体验就很不爽了
-
-4. 还有一种情况是，很多和 `npm` API 相关的 package，都会读取 `~/.npmrc` 中的 registry，或者使用默认的 registry —— [https://registry.npmjs.org/][npm-registry]，
-  去查询 npm package 相关的信息，比如下面这些：
-  
-  	- [npm-latest](http://cnpmjs.org/package/npm-latest): 查询某个 package 的最新版本号
-  	- [npm-name](http://cnpmjs.org/package/npm-name): 查询某个 package name 是否被注册了
-  	- [npm-dependents](https://npm.taobao.org/package/npm-dependents): 查找某个模块所依赖的其它所有模块
-  	- ...
-  
-  如果你用的任何一个包或其所依赖的包中用了这些 package，那么在这些包请求网络时也得慢死了！
+> 在中国，要下载 [npm][npm] 包非常慢，如果使用 [cnpm][cnpm] 下载包就非常快了，感觉很爽，但是 `cnpm` 也有几个大问题：
+> 
+> 1. `cnpm` 的仓库只是 `npm` 仓库的一个拷贝，它不承担 `publish` 工作，所以你[用 `cnpm publish` 命令会执行失败的](https://github.com/cnpm/cnpm/issues/23#issuecomment-87561615)
+> 
+> 2. 不仅是 `publish` 会执行失败，其它的需要注册用户(`npm adduser`)、或者[修改 package 状态等命令](http://qiu8310.github.io/smart-npm/global.html#npm-cmds)都无法用 `cnpm` 
+> 
+> 3. 有很多 `npm` 包都集成了 `npm install`，比如 [yeoman][yeoman] 的所有 `generators` ，在最后基本都会
+>   调用 `npm install`，可以看其[源码](https://github.com/yeoman/generator/blob/v0.18.10/lib/actions/install.js#L147-159)，
+>   这种情况下使用 `cnpm` 完全无效，必须中断操作，然后自己手动运行 `cnpm install`，或者在运行 `yo [generator]` 时就指定 `--skip-install`，
+>   这体验就很不爽了
+> 
+> 4. 还有一种情况是，很多和 `npm` API 相关的 package，都会读取 `~/.npmrc` 中的 registry，或者使用默认的 registry —— [https://registry.npmjs.org/][npm-registry]，
+>   去查询 npm package 相关的信息，比如下面这些：
+>   
+>   	- [npm-latest](http://cnpmjs.org/package/npm-latest): 查询某个 package 的最新版本号
+>   	- [npm-name](http://cnpmjs.org/package/npm-name): 查询某个 package name 是否被注册了
+>   	- [npm-dependents](https://npm.taobao.org/package/npm-dependents): 查找某个模块所依赖的其它所有模块
+>   	- ...
+>   
+>   如果你用的任何一个包或其所依赖的包中用了这些 package，那么在这些包请求网络时也得慢死了！
   
 ## 安装
 
-1. 安装 `smart-npm`: `npm install --global smart-npm`
-2. 在 `~/.npmrc` 上添加淘宝的 registry: `registry=https://registry.npm.taobao.org/`  
+1、安装 `smart-npm`: 
+
+```
+npm install --global smart-npm --registry=https://registry.npm.taobao.org/
+```
+
+2、在 `~/.npmrc` 上添加淘宝的 registry: `registry=https://registry.npm.taobao.org/`  
 
 ## 原理
 
@@ -105,7 +114,7 @@ Copyright (c) 2015 Zhonglei Qiu. Licensed under the MIT license.
 
 [yeoman]: http://yeoman.io/
 [npm]: https://npmjs.org/
-[cnpm]: http://cnpmjs.org/
+[cnpm]: https://github.com/cnpm/cnpm/
 [npm-registry]: https://registry.npmjs.org/
 
 [doc-url]: http://inch-ci.org/github/qiu8310/smart-npm
