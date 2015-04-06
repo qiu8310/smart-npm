@@ -11,6 +11,11 @@ var installMsg = 'rename: ' + npmPath + ' => ' + npmBackupPath,
   uninstallMsg = 'rename: ' + npmBackupPath + ' => ' + npmPath;
 
 
+/**
+ * pre-install hook
+ *
+ * @returns {boolean}
+ */
 exports.install = function() {
   if (process.env.CI) return true;
 
@@ -24,6 +29,11 @@ exports.install = function() {
 };
 
 
+/**
+ * post-uninstall hook
+ *
+ * @returns {boolean}
+ */
 exports.uninstall = function() {
   if (process.env.CI) return true;
 
