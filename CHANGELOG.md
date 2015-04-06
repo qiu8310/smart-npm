@@ -1,7 +1,8 @@
 
-0.0.5 / 2015-04-06
+0.0.6 / 2015-04-06
 ==================
 
+  * Fix travis build error
   * disable taobao registry when in CI environment
 
 
