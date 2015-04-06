@@ -1,4 +1,10 @@
 
+0.1.0 / 2015-04-06
+==================
+
+  * Save original npm, when you uninstall, oritinal npm will back
+
+
 0.0.7 / 2015-04-06
 ==================
 

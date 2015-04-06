@@ -42,7 +42,7 @@ __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `
 
 ## 安装
  
-__windows 未测试，请审装！如果您感兴趣，可以提交PR，使它可以兼容 windows__ 
+__windows 未完整测试，请审装！如果您感兴趣，可以提交PR，使它可以完全兼容 windows__ 
 
 ```
 npm install --global smart-npm --registry=https://registry.npm.taobao.org/
