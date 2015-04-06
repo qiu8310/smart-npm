@@ -1,4 +1,10 @@
 
+0.0.5 / 2015-04-06
+==================
+
+  * disable taobao registry when in CI environment
+
+
 0.0.4 / 2015-04-06
 ==================
 
