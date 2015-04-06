@@ -44,12 +44,11 @@
     "gulp-plumber": "^0.6.5"
   },
   "bin": {
-    "npm": "bin/cli.js",
-    "npm-original": "./node_modules/.bin/npm"
+    "npm": "bin/cli.js"
   },
   "scripts": {
-    "install": "node ./node_modules/.bin/npm config set registry http://registry.npm.taobao.org/",
-    "postuninstall": "node ./node_modules/.bin/npm config delete registry",
+    "preinstall": "npm config set registry http://registry.npm.taobao.org/ && node ./scripts/install.js",
+    "postuninstall": "node ./scripts/uninstall.js && npm config delete registry",
     "docs": "jsdoc -c ./jsdoc.json ./README.md && echo 'code{padding: 2px 4px;font-size: 90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px;}' >> ./docs/styles/jsdoc-default.css",
     "coveralls": "gulp test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test": "gulp test"

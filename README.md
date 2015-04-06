@@ -42,6 +42,7 @@ __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `
 
 ## 安装
  
+__windows 未测试，请审装！如果您感兴趣，可以提交PR，使它可以兼容 windows__ 
 
 ```
 npm install --global smart-npm --registry=https://registry.npm.taobao.org/
@@ -50,6 +51,15 @@ npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 安装后系统的 `npm` 会被替换了，如你要使用原生的 `npm` 命令，可以用 `npm-original` 代替；
 
 另外安装后默认会在你的 `npm` 用户配置文件 `~/.npmrc` 中添加淘宝的 registry。
+
+## 卸载
+
+```
+npm uninstall --global smart-npm
+```
+
+卸载会恢复原来的 `npm`
+
 
 
 ## 原理
@@ -125,7 +135,6 @@ __特定 loglevel 的缩写信息__
 ## Roadmap
 
 * npm 和 cnpm 的帮助混合在一起，比较乱，整理一个比较全面的帮助文档
-* 将 npm 的 man doc 引入进 smart-npm
 
 
 ## Reference
