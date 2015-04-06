@@ -9,7 +9,6 @@ npm run docs
 cd docs
 
 echo "Document direcotry: `pwd`"
-git st
 
 if [[ ! -d ./.git ]]; then
   git init

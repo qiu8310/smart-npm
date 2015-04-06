@@ -83,17 +83,16 @@ describe('smartNpm', function () {
   context('cli', function() {
     var npm = path.join(root, 'bin', 'cli.js');
     function run(args, cb) {
-      args.unshift(npm);
       var stdout = '';
       function handler(status, singal) {
         cb(status, stdout, singal);
       }
 
       if (process.env.CI) {
-        args.push('--registry=https://registry.npm.org/');
+        args.push('--registry=https://registry.npmjs.org/');
       }
 
-      var child = spawn('node', args).on('exit', handler);
+      var child = spawn(npm, args).on('exit', handler);
 
       child.stdout.on('data', function (data) {
         stdout += data.toString();
