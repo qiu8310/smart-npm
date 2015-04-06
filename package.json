@@ -25,7 +25,7 @@
     "taobao"
   ],
   "dependencies": {
-    "cnpm": "https://github.com/qiu8310/cnpm.git#3.0.1",
+    "cnpm": "^3.0.1",
     "cross-spawn": "^0.2.8",
     "npm": "^2.7.5"
   },
