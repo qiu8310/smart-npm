@@ -1,4 +1,11 @@
 
+0.0.7 / 2015-04-06
+==================
+
+  * Return npm version when use -v or --version
+  * Add install script and rewrite README.md
+
+
 0.0.6 / 2015-04-06
 ==================
 
