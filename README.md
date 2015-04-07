@@ -7,7 +7,7 @@
 [![Coverage Status][coveralls-image]][coveralls-url]
 
 
-智能的 `npm`，让你在中国使用 `npm` 时，下载速度更快，使用更方便！（_可不是配置一个国内的 `registry` 或者使用 `cnpm` 客户端这么简单哟_）
+智能的 `npm`，让你在中国使用 `npm` 时，下载速度更快，使用更方便！
 
 
 [jsdoc 生成的文档](http://qiu8310.github.io/smart-npm)
@@ -17,20 +17,25 @@
 
 ## 背景
 
-> 用 [`npm`][npm] 时，默认它会访问国外资源，所以会非常卡，有时甚至会被墙。现在市面上一般有两种解决方案：
+> 用 [`npm`][npm] 时，默认它会访问国外资源，所以会非常卡，有时甚至会被墙。现在市面上一般有三种解决方案：
 >
 > 1. 在 `.npmrc` 上配置一个国内的 registry 镜像
 >
 > 2. 使用 [`cnpm`](https://npm.taobao.org/)
+>
+> 3. 使用 VPN
 
 
-* 第1个方案很粗暴，可以解决很多下载慢的问题，但是当你用 `npm publish` 时就会失败；
+* 第1个方案很粗暴，可以解决很多下载慢的问题，但是当你用 `npm publish` 时就会失败
 
 * 第2个方案不错，但这样你就又会遇到问题，到底哪些命令需要用 `cnpm`，哪些命令需要用 `npm` 呢？
 
+* VPN 方案有时也不能百分百解决问题，有时有些 VPN 也不稳定，但有个 VPN 很保险就是
+
 
 > 其实 `cnpm` 的意图并不是简单给我们用来去下载 `npm` 资源的，它是为 [cnpm 服务端（也可以理解成 npm 的私有仓库）][cnpm-s]服务的。所以你如果简单的把
-> `cnpm` 当作 `npm` 来用会有出现很多问题（[见下](https://github.com/qiu8310/smart-npm/#%E6%8A%8A-cnpm-%E5%BD%93%E4%BD%9C-npm-%E6%9D%A5%E7%94%A8%E6%97%B6%E4%BC%9A%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98)）。 
+> `cnpm` 当作 `npm` 来用会有出现很多问题（[见下](https://github.com/qiu8310/smart-npm/#%E6%8A%8A-cnpm-%E5%BD%93%E4%BD%9C-npm-%E6%9D%A5%E7%94%A8%E6%97%B6%E4%BC%9A%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98)）。
+
 
 
 __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `npm install` 时自动从国内的镜像下载，而在我们使用 `npm publish` 又能发布到官方的 registry 上！__
@@ -42,15 +47,40 @@ __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `
 
 ## 安装
  
-__windows 未完整测试，请审装！如果您感兴趣，可以提交PR，使它可以完全兼容 windows__ 
+__windows 用户安装后，体验没有原生的好，因为每次运行都会创建一个子程序，所以请慎装！__ 
 
 ```
 npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 ```
 
-安装后系统的 `npm` 会被替换了，如你要使用原生的 `npm` 命令，可以用 `npm-original` 代替；
+安装成功后默认会在你的 `npm` 用户配置文件 `~/.npmrc` 中添加淘宝的 registry。
 
-另外安装后默认会在你的 `npm` 用户配置文件 `~/.npmrc` 中添加淘宝的 registry。
+## 使用
+
+* 安装后系统的 `npm` 会被替换了，如你要使用原生的 `npm` 命令，可以用 `npm-original` 代替。
+
+* 新的 `npm` 包含了`原生的 npm` 和 `cnpm` 两个模块，在你使用 `publish`, `config`, `adduser`, `star` 等（[click here to see more][npm-cmds]）
+  命令时，默认使用`原生的 npm`，并且自动会在命令上添加 `--registry=https://registry.npmjs.org`（防止被你的配置文件中的 registry 影响）；
+  当你使用其它命令时，都会使用 `cnpm` 模块。
+
+  - 如果要强制使用某个 registry 时，只要在命令后面添加 registry 参数即可，比如，
+    `npm install jquery --registry=https://r.cnpmjs.org` 就会使用你指定的 registry 去拉取 `jquery`
+    
+  - 如果要强制使用 `npm` 或者 `cnpm`，只要在命令后面加上 `--npm` 或者 `--cnpm`，
+    比如， `npm install jquery --npm` 就会强制使用 `npm` 模块去安装 `jquery`，而不是 `cnpm`
+
+
+### 比较有用但很少被用的一些 `npm` 或者 `cnpm` 的命令
+
+* __`npm repo {project_name}`__ ： 用浏览器打开 project_name 的 github 地址（前提是此 project 的 package.json 文件中有设置 `repository`）
+
+* __`npm home {project_name}`__ ： 用浏览器打开 project_name 的首页（前提是此 project 的 package.json 文件中有设置 `homepage`）
+
+* __`npm user {user_name}`__：`cnpm`的功能，用浏览器打开用户在淘宝镜像的主页，如 `https://npm.taobao.org/~{user_name}`
+
+* __`npm view {project_name} versions`__：查看 project_name 的所有版本号（只会显示版本号，不显示其它信息）
+
+* __`npm outdated`__：检查当前项目所依赖的 packages 是否有最新的版本可以更新
 
 ## 卸载
 
@@ -81,7 +111,7 @@ npm uninstall --global smart-npm
 
 ## 把 cnpm 当作 npm 来用时会出现的问题
 
-1. `publish`, `adduser`, `login` （[_Click here to see more_](http://qiu8310.github.io/smart-npm/global.html#npm-cmds)）
+1. `publish`, `adduser`, `login` （[_Click here to see more_][npm-cmds]）
   等命令无法通过 `cnpm` 来执行，即运行 `cnpm publish` 来发布一个版本会失败的
 
 2. 某此命令在 `cnpm` 和 `npm` 上表现完全不一样，如 `cnpm version`：显示当前 `cnpm 版本号`； 而 `npm version`：是可以修改当前 package 的版本号的
@@ -132,9 +162,10 @@ __特定 loglevel 的缩写信息__
 加上环境变量 `DEBUG=cnpm,cnpm:origin`
 
 
-## Roadmap
+## Todo List
 
 * npm 和 cnpm 的帮助混合在一起，比较乱，整理一个比较全面的帮助文档
+* 本地安装也会替代了全局的 `npm`
 
 
 ## Reference
@@ -143,6 +174,12 @@ __特定 loglevel 的缩写信息__
 - [所有 npm 支持的子命令](https://docs.npmjs.com/cli/access)
 - [cnpm server][cnpm-s]
 - [cnpm client][cnpm]
+
+
+# Release History
+
+[Changelog](CHANGELOG.md)
+
 
 
 
@@ -156,6 +193,9 @@ Copyright (c) 2015 Zhonglei Qiu. Licensed under the MIT license.
 [cnpm-s]: https://github.com/cnpm/cnpmjs.org
 [cnpm]: https://github.com/cnpm/cnpm/
 [npm-registry]: https://registry.npmjs.org/
+
+[npm-cmds]: http://qiu8310.github.io/smart-npm/global.html#npm
+[cnpm-cmds]: http://qiu8310.github.io/smart-npm/global.html#cnpm
 
 [doc-url]: http://inch-ci.org/github/qiu8310/smart-npm
 [doc-image]: http://inch-ci.org/github/qiu8310/smart-npm.svg?branch=master
