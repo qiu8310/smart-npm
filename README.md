@@ -14,7 +14,7 @@
 
 [github 地址](https://github.com/qiu8310/smart-npm)
 
-__ 通知：新发布的 1.0.0 版本去掉了 `cnpm` 模块，详情查看 [Changelog](CHANGELOG.md) __
+__通知：新发布的 1.0.0 版本去掉了 `cnpm` 模块，详情查看 [Changelog](CHANGELOG.md)__
 
 
 ## 背景
@@ -112,7 +112,10 @@ npm uninstall --global smart-npm
 1. `publish`, `adduser`, `login` （[_Click here to see more_][npm-cmds]）
   等命令无法通过 `cnpm` 来执行，即运行 `cnpm publish` 来发布一个版本会失败的
 
-2. 某此命令在 `cnpm` 和 `npm` 上表现完全不一样，如 `cnpm version`：显示当前 `cnpm 版本号`； 而 `npm version`：是可以修改当前 package 的版本号的
+2. 某些命令在 `cnpm` 和 `npm` 上表现完全不一样，比如：
+
+  - `cnpm version`：显示当前 `cnpm 版本号`； 而 `npm version`：是可以修改当前 package 的版本号的
+  - `cnpm -g root`：会报错； 而 `npm -g root` 会显示 global 安装的目录
 
 3. 有很多 `npm` 包都集成了 `npm install`，比如 [yeoman][yeoman] 的所有 `generators` ，在最后基本都会
   调用 `npm install`，（[_可以看其源码_](https://github.com/yeoman/generator/blob/v0.18.10/lib/actions/install.js#L147-159)）

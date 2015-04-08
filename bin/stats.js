@@ -11,7 +11,7 @@ var utils = require('../lib/utils');
 module.exports = function(parsedArgs) {
   var rest = parsedArgs.rest;
   if (rest.length < 2) {
-    console.error("\r\n\r\n\tUsage: npm stats [ -m{number} ] {package}\r\n\r\n");
+    console.error('\r\n\r\n\tUsage: npm stats [ -m{number} ] {package}\r\n\r\n');
   } else {
     var months = 2;
     var monthsFlag = -2;
