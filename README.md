@@ -57,30 +57,42 @@ npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 
 ## 使用
 
-* 安装后系统的 `npm` 会被替换了，如你要使用原生的 `npm` 命令，可以用 `npm-original` 代替。
+* 安装后系统的 `npm` 会被替换了，如果你要使用原生的 `npm` 命令，可以用 `npm-original` 代替。
 
-* 新的 `npm` 包含了`原生的 npm` 和 `cnpm` 两个模块，在你使用 `publish`, `config`, `adduser`, `star` 等（[click here to see more][npm-cmds]）
-  命令时，默认使用`原生的 npm`，并且自动会在命令上添加 `--registry=https://registry.npmjs.org`（防止被你的配置文件中的 registry 影响）；
-  当你使用其它命令时，都会使用 `cnpm` 模块。
+* 新的 `npm` 会自动根据你使用的命令切换 registry：当你使用 `publish`, `config`, `adduser`, `star` 等（[click here to see more][npm-cmds]）
+  命令时，会强制使用官方的 registry `https://registry.npmjs.org`；当你使用其它命令时，都会使用淘宝的镜像 `https://registry.npm.taobao.org/`。
 
   - 如果要强制使用某个 registry 时，只要在命令后面添加 registry 参数即可，比如，
     `npm install jquery --registry=https://r.cnpmjs.org` 就会使用你指定的 registry 去拉取 `jquery`
     
-  - 如果要强制使用 `npm` 或者 `cnpm`，只要在命令后面加上 `--npm` 或者 `--cnpm`，
-    比如， `npm install jquery --npm` 就会强制使用 `npm` 模块去安装 `jquery`，而不是 `cnpm`
+  - 如果要强制使用官方的 registry， 只要在命令后面加上 `--npm` 即可，
+    比如， `npm install jquery --npm` 就会使用官方的 registry 去拉取 `jquery`，（当镜像没有及时更新时，用此会选项很有效）
+    
+  - 如果你想修改默认的淘宝镜像或者官方的 registry，可以在你的环境变量中添加这两个参数：
+    `NPM_OFFICIAL_REGISTRY`， `NPM_MIRROR_REGISTRY`，以此来修改默认的官方 registry 和 淘宝镜像 registry。
+    更多环境变量的配置请[点击这里][env]
+
+### `smart-npm` 扩展的几个新命令
+
+* __`npm check`__： 由 [npm-check](https://github.com/dylang/npm-check) 提供，和 `npm outdated` 类似，但提示更人性化，同时它也支持自动更新依赖
+
+* __`npm stats {package}`__： 打开一个网页，可以看到 package 的统计数据，包括被下载的次数、最近更新时间、被依赖的次数及排名等数据
+
+* __`npm user {package}`__： 打开一个网页，跳到用户的 `npm` 上的个人主页，如果加了参数 `-t`，则是跳到淘宝镜像的个人主页
 
 
-### 比较有用但很少被用的一些 `npm` 或者 `cnpm` 的命令
+### 比较有用但很少被用的一些 `npm` 的命令
 
-* __`npm repo {project_name}`__ ： 用浏览器打开 project_name 的 github 地址（前提是此 project 的 package.json 文件中有设置 `repository`）
+* __`npm repo {package}`__ ： 用浏览器打开 package 的 github 地址（前提是此 package 的 package.json 文件中有设置 `repository`）
 
-* __`npm home {project_name}`__ ： 用浏览器打开 project_name 的首页（前提是此 project 的 package.json 文件中有设置 `homepage`）
+* __`npm home {package}`__ ： 用浏览器打开 package 的首页（前提是此 package 的 package.json 文件中有设置 `homepage`）
 
-* __`npm user {user_name}`__：`cnpm`的功能，用浏览器打开用户在淘宝镜像的主页，如 `https://npm.taobao.org/~{user_name}`
+* __`npm user {package}`__：`cnpm`的功能，用浏览器打开用户在淘宝镜像的主页，如 `https://npm.taobao.org/~{user_name}`
 
-* __`npm view {project_name} versions`__：查看 project_name 的所有版本号（只会显示版本号，不显示其它信息）
+* __`npm view {package} versions`__：查看 package 的所有版本号（只会显示版本号，不显示其它信息）
 
 * __`npm outdated`__：检查当前项目所依赖的 packages 是否有最新的版本可以更新
+
 
 ## 卸载
 
@@ -89,22 +101,6 @@ npm uninstall --global smart-npm
 ```
 
 卸载会恢复原来的 `npm`
-
-
-
-## 原理
-
-1. 此包只是对 `npm` 和 `cnpm` 的一个简单封装，它能自动根据你使用的子命令判断使用 `npm` 还是 `cnpm`。
-  判断的主要依据是根据所要执行的子命令是否需要去 `registry` 上修改或添加信息。因为一般的镜像是只支持读取
-  信息，而不支持修改或添加信息的。所以，如果子命令（像 `publish`、`adduser` 等）需要去修改或添加信息就会使用 `npm`，
-  而如果子命令（像 `install`、`info` 行）只是读取信息，则会使用 `cnpm`。
-
-2. 安装上包之后，你的 `~/.npmrc` 中会多一个淘宝的 registry，主要解决很多开源的 package 会根据此处的 registry 去获取其所要获取的
-  package 的信息。
-  
-  _可能有人会问，既然这里添加了一个 registry，那么在用 `npm publish` 的时候不也会用这个 registry 吗？_
-  
-  不会的，因为在你用 `npm publish` 的时候， `smart-npm` 自动帮你在命令后面加上了 `--registry=https://registry.npmjs.org`
 
 
 
@@ -157,15 +153,12 @@ __特定 loglevel 的缩写信息__
 - quiet:    ["--loglevel", "warn"]
 - q:        ["--loglevel", "warn"]
 
-#### 调试 cnpm
-
-加上环境变量 `DEBUG=cnpm,cnpm:origin`
-
 
 ## Todo List
 
-* npm 和 cnpm 的帮助混合在一起，比较乱，整理一个比较全面的帮助文档
 * 本地安装也会替代了全局的 `npm`
+* 添加更多有用的组件
+* 修改 `stats` 命令，把数据显示在命令行上
 
 
 ## Reference
@@ -193,9 +186,8 @@ Copyright (c) 2015 Zhonglei Qiu. Licensed under the MIT license.
 [cnpm-s]: https://github.com/cnpm/cnpmjs.org
 [cnpm]: https://github.com/cnpm/cnpm/
 [npm-registry]: https://registry.npmjs.org/
-
 [npm-cmds]: http://qiu8310.github.io/smart-npm/global.html#npm
-[cnpm-cmds]: http://qiu8310.github.io/smart-npm/global.html#cnpm
+[env]: http://qiu8310.github.io/smart-npm/global.html#env
 
 [doc-url]: http://inch-ci.org/github/qiu8310/smart-npm
 [doc-image]: http://inch-ci.org/github/qiu8310/smart-npm.svg?branch=master

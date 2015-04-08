@@ -3,91 +3,109 @@ var path = require('path');
 var spawn = require('cross-spawn');
 var assert = require('should');
 
+var locateBin = require('../lib/locate-bin');
 var parseArgs = require('../lib/parse-args');
+var env = require('../lib/env');
 var npmCmds = require('../lib/npm-cmds');
 
 var root = path.resolve(path.dirname(__dirname));
 
 describe('smartNpm', function () {
 
-  function findNodeModuleBin(module, bin) {
-    var main = require.resolve(module);
-    var parts = main.split(path.sep);
-    bin = bin || module;
-    var ref = parts.pop();
-    while (ref && (module !== ref || parts[parts.length - 1] !== 'node_modules')) {
-      ref = parts.pop();
-    }
-    return path.join(parts.join(path.sep), '.bin', bin);
-  }
-
-  var cnpmCmd = findNodeModuleBin('cnpm'),
-    npmCmd = findNodeModuleBin('npm'),
-    cnpmSubCmd = 'install',
+  var npmCmd = locateBin('npm'),
     npmSubCmd = npmCmds[0],
-    npmRegistry = '--registry=https://registry.npmjs.org/';
+    noNpmSubCmd = 'install',
+    mirrorRegistry = '--registry=' + env.NPM_MIRROR_REGISTRY,
+    officialRegistry = '--registry=' + env.NPM_OFFICIAL_REGISTRY;
 
-  context('registry', function() {
-    it('should add npm registry to arguments when use npm sub cmd', function() {
-      assert.deepEqual(parseArgs([npmSubCmd]), {cmd: npmCmd, args: [npmSubCmd, npmRegistry]});
-    });
-
-    it('should not add npm registry to arguments when use cnpm sub cmd', function() {
-      assert.deepEqual(parseArgs([cnpmSubCmd]), {cmd: cnpmCmd, args: [cnpmSubCmd]});
-    });
-
-    it('should not add npm registry to arguments when user arguments already have a registry', function() {
-      var registry = '--registry=xx';
-      assert.deepEqual(parseArgs([npmSubCmd, registry]), {cmd: npmCmd, args: [npmSubCmd, registry]});
-      assert.deepEqual(parseArgs([cnpmSubCmd, registry]), {cmd: cnpmCmd, args: [cnpmSubCmd, registry]});
+  context('npmCmds', function() {
+    it('should be a Array and not empty', function() {
+      npmCmds.should.be.an.Array;
+      assert.ok(npmCmds.length);
     });
   });
 
-  context('cmd', function() {
-    it('should use cnpm cmd if no arguments', function () {
-      assert.deepEqual(parseArgs([]), {cmd: cnpmCmd, args: []});
+  context('env', function() {
+    it('should be a Object and not empty', function() {
+      env.should.be.an.Object;
+      assert.ok(Object.keys(env).length);
     });
-
-    it('should use cnpm cmd if sub cmd not defined in file `lib/npm-cmd.js`', function() {
-      assert.deepEqual(parseArgs([cnpmSubCmd]), {cmd: cnpmCmd, args: [cnpmSubCmd]});
+    it('should added to the process.env after parse-args with no official registry', function() {
+      parseArgs([noNpmSubCmd]).env.should.containEql(env);
     });
-
-    it('should use npm cmd if sub cmd defined in file `lib/npm-cmd.js`', function() {
-      npmCmds.forEach(function(cmd) {
-        assert.deepEqual(parseArgs([cmd]), {cmd: npmCmd, args: [cmd, npmRegistry]});
-      });
-    });
-
-    it('should use forced use npm cmd when arguments have a param `--npm`', function() {
-      assert.deepEqual(parseArgs([cnpmSubCmd, '--npm']), {cmd: npmCmd, args: [cnpmSubCmd, npmRegistry]});
-      assert.deepEqual(parseArgs([npmSubCmd, '--npm']), {cmd: npmCmd, args: [npmSubCmd, npmRegistry]});
-    });
-
-    it('should use forced use cnpm cmd when arguments have a param `--cnpm`', function() {
-      assert.deepEqual(parseArgs([cnpmSubCmd, '--cnpm']), {cmd: cnpmCmd, args: [cnpmSubCmd]});
-      assert.deepEqual(parseArgs([npmSubCmd, '--cnpm']), {cmd: cnpmCmd, args: [npmSubCmd]});
+    it('should not added to the process.env after parse-args with official registry', function() {
+      parseArgs([npmSubCmd]).env.should.not.containEql(env);
     });
   });
 
   context('arguments', function() {
     it('should pass user arguments to returned arguments', function() {
       var userArgs = ['-a', '--bd=xxx', '-c', '--de'];
-      assert.deepEqual(parseArgs([npmSubCmd].concat(userArgs)).args, [npmSubCmd].concat(userArgs, npmRegistry));
-      assert.deepEqual(parseArgs(userArgs.concat(npmSubCmd)).args, userArgs.concat(npmSubCmd, npmRegistry));
 
-      assert.deepEqual(parseArgs([cnpmSubCmd].concat(userArgs)).args, [cnpmSubCmd].concat(userArgs));
-      assert.deepEqual(parseArgs(userArgs.concat(cnpmSubCmd)).args, userArgs.concat(cnpmSubCmd));
+      parseArgs([npmSubCmd].concat(userArgs)).args.should.containDeep(userArgs);
+      parseArgs(userArgs.concat(npmSubCmd)).args.should.containDeep(userArgs);
+
+      parseArgs([noNpmSubCmd].concat(userArgs)).args.should.containDeep(userArgs);
+      parseArgs(userArgs.concat(noNpmSubCmd)).args.should.containDeep(userArgs);
+    });
+  });
+
+  context('parse-args basic', function() {
+    it('should return object with four keys on it', function() {
+      var ret = parseArgs([npmSubCmd]);
+      Object.keys(ret).should.has.a.length(4);
+      Object.keys(ret).should.containDeep(['cmd', 'rest', 'env', 'args']);
     });
 
-    it('should return npm version when use -v or --version, not cnpm version', function() {
-      var arg1 = ['-v'], arg2 = ['--version', 'some', 'other'];
-      assert.deepEqual(parseArgs(arg1).cmd, npmCmd);
-      assert.deepEqual(parseArgs(arg2).cmd, npmCmd);
+    it('should always use local npm bin', function() {
+      parseArgs([npmSubCmd]).should.containEql({cmd: npmCmd});
+      parseArgs([noNpmSubCmd]).should.containEql({cmd: npmCmd});
+    });
+  });
+
+  context('registry', function() {
+    it('should use mirror registry if sub cmd not defined in file `lib/npm-cmd.js`', function() {
+      parseArgs([noNpmSubCmd]).args.should.containEql(mirrorRegistry);
+      parseArgs([noNpmSubCmd, 'others', '-a']).args.should.containEql(mirrorRegistry);
+    });
+
+    it('should use official registry if sub cmd defined in file `lib/npm-cmd.js`', function() {
+      npmCmds.forEach(function(cmd) {
+        parseArgs([cmd]).args.should.containEql(officialRegistry);
+        parseArgs([cmd, '-a', 'a']).args.should.containEql(officialRegistry);
+      });
+    });
+
+    it('should force use official registry when arguments have a param `--npm`', function() {
+      parseArgs([noNpmSubCmd, '--npm']).args.should.containEql(officialRegistry);
+      parseArgs([npmSubCmd, '--npm']).args.should.containEql(officialRegistry);
+    });
+
+    it('should not use official or mirror registry when arguments already have a registry', function() {
+      var registry = '--registry=xx';
+      parseArgs([npmSubCmd, registry]).args.should.not.containEql(officialRegistry);
+      parseArgs([npmSubCmd, registry]).args.should.not.containEql(mirrorRegistry);
+      parseArgs([noNpmSubCmd, registry]).args.should.not.containEql(officialRegistry);
+      parseArgs([noNpmSubCmd, registry]).args.should.not.containEql(mirrorRegistry);
+
+      parseArgs([npmSubCmd, registry]).args.should.containEql(registry);
+      parseArgs([noNpmSubCmd, registry]).args.should.containEql(registry);
+    });
+
+    it('should not use official or mirror registry even with `--npm` when arguments already have a registry', function() {
+      var registry = '--registry=xx';
+      parseArgs([npmSubCmd, registry, '--npm']).args.should.not.containEql(officialRegistry);
+      parseArgs([npmSubCmd, registry, '--npm']).args.should.not.containEql(mirrorRegistry);
+      parseArgs([noNpmSubCmd, registry, '--npm']).args.should.not.containEql(officialRegistry);
+      parseArgs([noNpmSubCmd, registry, '--npm']).args.should.not.containEql(mirrorRegistry);
+
+      parseArgs([npmSubCmd, registry, '--npm']).args.should.containEql(registry);
+      parseArgs([noNpmSubCmd, registry, '--npm']).args.should.containEql(registry);
     });
   });
 
   context('cli', function() {
-    var npm = path.join(root, 'bin', 'cli.js');
+    var npm = path.join(root, 'bin', 'smart-npm.js');
     function run(args, cb) {
       var stdout = '';
       function handler(status, singal) {

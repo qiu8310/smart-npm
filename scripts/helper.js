@@ -1,8 +1,7 @@
-var os = require('os'),
-  fs = require('fs'),
+var fs = require('fs'),
   path = require('path');
 
-var isWin = os.platform().indexOf('win') === 0,
+var isWin = process.platform === 'win32',
   npmDir = path.dirname(process.execPath),
   npmPath = path.join(npmDir, isWin ? 'npm.cmd' : 'npm'),
   npmBackupPath = path.join(npmDir, isWin ? 'npm-original.cmd' : 'npm-original');
