@@ -14,6 +14,8 @@
 
 [github 地址](https://github.com/qiu8310/smart-npm)
 
+__ 通知：新发布的 1.0.0 版本去掉了 `cnpm` 模块，详情查看 [Changelog](CHANGELOG.md) __
+
 
 ## 背景
 
