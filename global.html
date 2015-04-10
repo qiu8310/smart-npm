@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Global</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Global</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="env"><span class="type-signature"></span>env<span class="type-signature"> :Object</span></h4>
+
+
+
+
+<div class="description">
+    <p>环境变量的配置，可以在你的系统的环境变量中配置同名的 key，以将这些默认的值覆盖</p>
+<p>各项配置解释：</p>
+<ul>
+<li><em><code>NPM_OFFICIAL_REGISTRY</code></em>: 官方 registry 注册地址，默认值 <code>https://registry.npmjs.org/</code></li>
+<li><em><code>NPM_MIRROR_REGISTRY</code></em>:   国内的 npm registry 镜像，默认值 <code>https://registry.npm.taobao.org/</code></li>
+<li><em><code>NVM_NODEJS_ORG_MIRROR</code></em>: node 安装包下载地址，默认值 <code>https://npm.taobao.org/mirrors/node</code></li>
+<li><em><code>NVM_IOJS_ORG_MIRROR</code></em>:   iojs 安装包的下载地址，默认值 <code>https://npm.taobao.org/mirrors/iojs</code></li>
+<li><em><code>PHANTOMJS_CDNURL</code></em>:      phantomjs 安装包的下载地址，默认值 <code>https://npm.taobao.org/mirrors/phantomjs</code></li>
+<li><em><code>CHROMEDRIVER_CDNURL</code></em>:   chrome driver 安装包的下载地址，默认值 <code>https://npm.taobao.org/mirrors/chromedriver</code></li>
+<li><em><code>SELENIUM_CDNURL</code></em>:       selenium 安装包的下载地址，默认值 <code>https://npm.taobao.org/mirrors/selenium</code></li>
+</ul>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="env.js.html">env.js</a>, <a href="env.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="npm-cmds"><span class="type-signature"></span>npm-cmds<span class="type-signature"> :Array.&lt;String></span></h4>
+
+
+
+
+<div class="description">
+    <p>所有需要使用 npm 的子命令</p>
+<ul>
+<li><p><a name="npm">需要去 registry 上修改或添加信息的命令，只能使用官方的 registry （有待更新）</a></p>
+<ul>
+<li><code>acccess</code>: 修改 package 的访问权限</li>
+<li><code>adduser</code>: 注册用户</li>
+<li><code>login</code>: 登录</li>
+<li><code>config</code>, <code>c</code>, <code>set</code>, <code>get</code>: 配置相关</li>
+<li><code>deprecate</code>: 标识某个版本已经废弃了，在用户安装是会得到提醒</li>
+<li><code>dist-tag</code>: 修改 package tag 相关</li>
+<li><code>owner</code>: package 拥有者相关</li>
+<li><code>star</code>, <code>unstar</code>: star or unstar a package</li>
+<li><code>publish</code>, <code>unpublish</code>: 发布或者取消发布某一个版本</li>
+</ul>
+<p><em>更多其它子命令可以去<a href="https://docs.npmjs.com/cli/access">官网查看</a></em></p>
+</li>
+</ul>
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;String></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="npm-cmds.js.html">npm-cmds.js</a>, <a href="npm-cmds.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="parse-args"><span class="type-signature"></span>parse-args<span class="signature">(args)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>解析 cli 的参数</p>
+<ul>
+<li>如果命令中带有 <code>--registry</code>，则使用其指定的 registry ，如 <code>npm install jquery --registry=https://registry.npmjs.org</code></li>
+<li>如果命令中带有 <code>--npm</code>， 则强制使用官方的 registry ， 如 <code>npm install jquery --npm</code></li>
+<li>如果命令中不带有上面两个参数，则判断命令是否是 <a href="global.html#npm-cmds">npm-cmds</a> 中的一个，是的话用官方的 registry ，否则使用中国镜像的 registry</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>args</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cli 的参数，一般是 process.argv.slice(2)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="parse-args.js.html">parse-args.js</a>, <a href="parse-args.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils.html">utils</a></li></ul><h3>Global</h3><ul><li><a href="global.html#env">env</a></li><li><a href="global.html#npm-cmds">npm-cmds</a></li><li><a href="global.html#parse-args">parse-args</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Fri Apr 10 2015 18:31:57 GMT+0800 (CST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
