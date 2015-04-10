@@ -45,7 +45,7 @@
     "should": "^5.2.0"
   },
   "bin": {
-    "npm": "bin/smart-npm.js"
+    "snpm": "bin/smart-npm.js"
   },
   "scripts": {
     "preinstall": "npm config set registry http://registry.npm.taobao.org/ && node ./scripts/helper.js preinstall",
