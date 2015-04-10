@@ -24,7 +24,8 @@ if test $# -gt 0; then
     echo '\033[31m version update failed \033[0m'
     exit 1
   fi
-  git-release $1 -c \
+  git changelog \
+    && git release $1 \
     && echo 'publish docs' \
     && sh ./publish_docs.sh \
     && echo 'npm publish ... ' \
