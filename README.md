@@ -205,7 +205,3 @@ Copyright (c) 2015 Zhonglei Qiu. Licensed under the MIT license.
 [coveralls-url]: https://coveralls.io/r/qiu8310/smart-npm
 [coveralls-image]: https://coveralls.io/repos/qiu8310/smart-npm/badge.png
 
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/qiu8310/smart-npm/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
