@@ -51,7 +51,16 @@ __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `
  
 __windows 用户安装后，体验没有原生的好，因为每次运行都会创建一个子程序，所以请慎装！__ 
 
-```
+**安装前请先手动备份原 `npm`，安装后默认的 `npm` 会被覆盖掉**
+
+
+```bash
+
+# Mac 或者 Linux 用户
+`mv `which npm`  $(dirname `which npm`)/npm-origin`
+npm-origin install --global smart-npm --registry=https://registry.npm.taobao.org/
+
+# Window 用户请手动备份 npm.cmd 文件
 npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 ```
 
