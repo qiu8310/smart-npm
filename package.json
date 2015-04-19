@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "cross-spawn": "^0.2.8",
-    "npm": "^2.8.3",
+    "npm": "latest",
     "npm-check": "^3.2.10",
     "open": "0.0.5"
   },
