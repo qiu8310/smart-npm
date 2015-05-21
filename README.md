@@ -66,6 +66,26 @@ npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 
 安装成功后默认会在你的 `npm` 用户配置文件 `~/.npmrc` 中添加淘宝的 registry。
 
+
+### 几个不错的 alias
+
+```bash
+
+# 备份系统默认的 npm 到 npm-original
+alias npm_backup='ln -s -i $(npm root -g)/npm/bin/npm-cli.js $(dirname $(which npm))/npm-original'
+
+# 恢复系统默认的 npm 
+alias npm_recover='ln -s -f $(npm root -g)/npm/bin/npm-cli.js $(dirname $(which npm))/npm'
+
+# 重新启用 smart-npm
+alias npm_smart='ln -s -f $(npm root -g)/smart-npm/bin/smart-npm.js $(dirname $(which npm))/npm'
+
+# 更新 smart-npm 中的 npm 版本
+alias npm_update='cd $(npm root -g)/smart-npm/ && npm update npm && cd -'
+
+```
+
+
 ## 使用
 
 * 安装后系统的 `npm` 会被替换了，如果你要使用原生的 `npm` 命令，可以用 `npm-original` 代替。
