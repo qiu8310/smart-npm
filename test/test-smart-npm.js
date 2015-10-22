@@ -127,7 +127,7 @@ describe('smartNpm', function () {
       });
     }
 
-    it('should install package `x-path` successfully', function(done) {
+    xit('should install package `x-path` successfully', function(done) {
       this.timeout(10000);
       // remove package before install
       run(['uninstall', 'x-path'], function() {
@@ -138,7 +138,7 @@ describe('smartNpm', function () {
       });
     });
 
-    it('should get package `x-path`\'s info successfully', function(done) {
+    xit('should get package `x-path`\'s info successfully', function(done) {
       this.timeout(10000);
       run(['info', 'x-path'], function(status, content) {
         status.should.eql(0);
