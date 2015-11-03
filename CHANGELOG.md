@@ -1,4 +1,13 @@
 
+1.2.3 / 2015-11-03
+==================
+
+  * 添加 electron 和 node-sass 的镜像
+  * add 'search' to native npm cmd
+  * whoami 命令需要走官方的 registry
+  * 更新本地安装了 smart-npm 运行 npm test 失败的问题
+  * 更新几个非常有用的 alias 脚本
+
 1.2.1 / 2015-04-19
 ==================
 
