@@ -2,6 +2,7 @@
 [![NPM version](https://badge.fury.io/js/smart-npm.svg)](https://npmjs.org/package/smart-npm)
 [![GitHub version][git-tag-image]][project-url]
 [![Build Status][travis-image]][travis-url]
+[![Build status](https://ci.appveyor.com/api/projects/status/tri2wmdlica5op76?svg=true)](https://ci.appveyor.com/project/qiu8310/smart-npm)
 [![Dependency Status][daviddm-url]][daviddm-image]
 [![Inline docs][doc-image]][doc-url]
 [![Coverage Status][coveralls-image]][coveralls-url]

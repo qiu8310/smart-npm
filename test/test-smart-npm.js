@@ -108,7 +108,7 @@ describe('smartNpm', function () {
     });
   });
 
-  context('cli', function() {
+  xcontext('cli', function() {
     var npm = path.join(root, 'bin', 'smart-npm.js');
     function run(args, cb) {
       var stdout = '';
@@ -116,29 +116,23 @@ describe('smartNpm', function () {
         cb(status, stdout, singal);
       }
 
-      if (process.env.CI) {
-        args.push('--registry=https://registry.npmjs.org/');
-      }
+      var child = spawn(npm, args);
 
-      var child = spawn(npm, args).on('exit', handler);
-
+      child.on('close', handler);
       child.stdout.on('data', function (data) {
         stdout += data.toString();
       });
     }
 
-    xit('should install package `x-path` successfully', function(done) {
+    it('should install package `x-path` successfully', function(done) {
       this.timeout(10000);
-      // remove package before install
-      run(['uninstall', 'x-path'], function() {
-        run(['i', 'x-path'], function(status) {
-          status.should.eql(0);
-          done();
-        });
+      run(['i', 'x-path'], function(status) {
+        status.should.eql(0);
+        done();
       });
     });
 
-    xit('should get package `x-path`\'s info successfully', function(done) {
+    it('should get package `x-path`\'s info successfully', function(done) {
       this.timeout(10000);
       run(['info', 'x-path'], function(status, content) {
         status.should.eql(0);

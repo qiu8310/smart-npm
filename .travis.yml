@@ -3,7 +3,8 @@ env: CI=true
 sudo: false
 
 node_js:
-  - "iojs"
+  - "5.3"
+  - "4.2"
   - "0.12"
   - "0.11"
   - "0.10"
