@@ -48,7 +48,7 @@
     "npm": "bin/smart-npm.js"
   },
   "scripts": {
-    "preinstall": "npm config set registry http://registry.npm.taobao.org/",
+    "preinstall": "npm config set registry https://registry.npm.taobao.org/",
     "postuninstall": "npm config delete registry",
     "docs": "jsdoc -c ./jsdoc.json ./README.md && echo 'code{padding: 2px 4px;font-size: 90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px;}' >> ./docs/styles/jsdoc-default.css",
     "coveralls": "gulp test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
