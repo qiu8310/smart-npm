@@ -10,7 +10,8 @@ var createChild = true, // 是否新创建一个子程序
   extendSubCommands = {
     stats: 1,
     user: 1,
-    check: 1
+    check: 1,
+    smart: 1
   };
 
 var subCmd = parsedArgs.rest.length && parsedArgs.rest[0];
@@ -27,7 +28,15 @@ if (subCmd && extendSubCommands[subCmd]) {
   }
 }
 
-if (createChild) {
+// 第二个参数是 "--registry=..."
+if (parsedArgs.args.length === 2 && ['-v', '--version'].indexOf(parsedArgs.args[0]) >= 0) {
+  var npmVersion = require('npm/package.json').version;
+  var smartVersion = require('../package.json').version;
+
+  console.log('       npm:  %s', npmVersion);
+  console.log(' smart-npm:  %s', smartVersion);
+
+} else if (createChild) {
   var child = spawn(parsedArgs.cmd, parsedArgs.args, {
     env: parsedArgs.env,
     cwd: process.cwd(),

@@ -33,8 +33,6 @@ if test $# -gt 0; then
   fi
   git changelog -t $1 \
     && git release $1 \
-    && echo 'publish docs' \
-    && sh ./publish_docs.sh \
     && echo 'npm publish ... ' \
     && npm publish
 else

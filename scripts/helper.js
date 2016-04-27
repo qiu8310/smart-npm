@@ -103,14 +103,14 @@ function postInstall() {
 }
 
 /**
- * post-uninstall hook
+ * pre-uninstall hook
  *
  * 1. 判断 npm 链接文件是否存在
  *
  *   - 存在就不做任何操作
  *   - 不存在就将备份的 npm 恢复
  */
-function postUninstall() {
+function uninstall() {
   if (fs.existsSync(npmPath)) fs.unlinkSync(npmPath);
   if (fs.existsSync(npmBackupPath)) fs.unlinkSync(npmBackupPath);
 
@@ -126,13 +126,13 @@ function postUninstall() {
   // }
 }
 
-function linkDest(linkfile) {
-  return path.resolve(path.dirname(linkfile), fs.readlinkSync(linkfile));
-}
+module.exports = {
+  uninstall: uninstall
+};
+
 
 switch (process.argv[2]) {
   case 'preinstall': preInstall(); break;
   case 'postinstall': postInstall(); break;
-  case 'postuninstall': postUninstall(); break;
-  default : console.error('Command no found!'); process.exit(1);
+  // default : console.error('Command no found!'); process.exit(1);
 }

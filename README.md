@@ -47,7 +47,6 @@ __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `
 ###  就让 `smart-npm` 来为你完成吧！
 
 
-
 ## 安装
  
 ```
@@ -55,6 +54,15 @@ npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 ```
 
 安装成功后默认会在你的 `npm` 用户配置文件 `~/.npmrc` 中添加淘宝的 registry。
+
+## 卸载
+
+```
+npm smart uninstall
+npm uninstall --global smart-npm
+```
+
+要先执行 `npm smart uninstall` 是因为如果直接执行 npm uninstall 会导致找不到 npm 文件
 
 
 ### 几个不错的 alias
@@ -72,6 +80,13 @@ alias smart_overwrite_npm='ln -s -f $(npm root -g)/smart-npm/bin/smart-npm.js $(
 
 # 更新 smart-npm 中的 npm 版本
 alias smart_update_npm='cd $(npm root -g)/smart-npm/ && npm update npm && cd -'
+```
+
+
+### Mac 或 Linux 用户可以使用下面命令恢复之前备份的 npm
+
+```
+mv $(which npm-original) $(dirname $(which npm-original))/npm
 ```
 
 
@@ -112,20 +127,6 @@ alias smart_update_npm='cd $(npm root -g)/smart-npm/ && npm update npm && cd -'
 * __`npm view {package} versions`__：查看 package 的所有版本号（只会显示版本号，不显示其它信息）
 
 * __`npm outdated`__：检查当前项目所依赖的 packages 是否有最新的版本可以更新
-
-
-## 卸载
-
-```
-npm uninstall --global smart-npm
-```
-
-### Mac 或 Linux 用户可以使用下面命令恢复之前备份的 npm
-
-```
-mv $(which npm-original) $(dirname $(which npm-original))/npm
-```
-
 
 
 
@@ -199,8 +200,6 @@ __特定 loglevel 的缩写信息__
 # Release History
 
 [Changelog](CHANGELOG.md)
-
-
 
 
 ## License
