@@ -1,7 +1,7 @@
 {
   "name": "smart-npm",
   "description": "Auto switch registry according your npm command.",
-  "version": "1.2.4",
+  "version": "2.0.0-alpha",
   "homepage": "https://github.com/qiu8310/smart-npm",
   "bugs": "https://github.com/qiu8310/smart-npm/issues",
   "license": "MIT",
@@ -45,11 +45,12 @@
     "should": "^6.0.1"
   },
   "bin": {
-    "npm": "bin/smart-npm.js"
+    "smart-npm": "bin/smart-npm.js"
   },
   "scripts": {
     "preinstall": "npm config set registry https://registry.npm.taobao.org/",
-    "postuninstall": "npm config delete registry",
+    "postinstall": "node scripts/helper.js postinstall",
+    "postuninstall": "npm config delete registry && node scripts/helper.js postuninstall",
     "docs": "jsdoc -c ./jsdoc.json ./README.md && echo 'code{padding: 2px 4px;font-size: 90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px;}' >> ./docs/styles/jsdoc-default.css",
     "coveralls": "gulp test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "test": "gulp test"

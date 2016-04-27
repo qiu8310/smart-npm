@@ -2,10 +2,13 @@ var fs = require('fs'),
   path = require('path');
 
 var isWin = process.platform === 'win32',
-  npmDir = path.dirname(process.execPath),
-  npmPath = path.join(npmDir, isWin ? 'npm.cmd' : 'npm'),
-  npmTmpPath = path.join(npmDir, isWin ? '_npm-original.cmd' : '_npm-original'),
-  npmBackupPath = path.join(npmDir, isWin ? 'npm-original.cmd' : 'npm-original');
+  npmBinDir = path.dirname(process.execPath),
+  npmPath = path.join(npmBinDir, isWin ? 'npm.cmd' : 'npm'),
+  npmTmpPath = path.join(npmBinDir, isWin ? '_npm-original.cmd' : '_npm-original'),
+  npmDestPath = path.resolve(path.join(npmBinDir, '..', 'lib', 'node_modules', 'npm', 'bin', 'npm-cli.js')),
+  npmBackupPath = path.join(npmBinDir, isWin ? 'npm-original.cmd' : 'npm-original');
+
+var smartDestPath = path.resolve(path.join(__dirname, '..', 'bin', 'smart-npm.js'));
 
 function renameMsg(type, from, to) {
   console.log('\r\n' + type + ' rename: ' + from + ' => ' + to + '\r\n');
@@ -69,7 +72,7 @@ function preInstall() {
  * 1. 判断 npm 文件是否存在
  *
  *   - 如果存在，则表示此次安装是全局安装，并将临时文件重命名成 npm-original
- *   - 如果不存在，则表示是本地安装，并将临时文件重合名成之前的 npm
+ *   - 如果不存在，则表示是本地安装，并将临时文件重命名成之前的 npm
  *
  * 2. 用户可能通过 `npm link` 的形式本地开发
  *
@@ -77,20 +80,26 @@ function preInstall() {
  *   > install package and then link bin
  *   > post-install
  *   >
- *   > 但在使用 `npm link` 命令是，link bin 会放到 post-install 之后，所以蛋疼！
+ *   > 但在使用 `npm link` 命令时，link bin 会放到 post-install 之后，所以蛋疼！
  *
  * TODO 想办法区分 `npm link` 和 `npm install --global smart-npm`
  *
  */
 function postInstall() {
+  if (fs.existsSync(npmPath)) fs.unlinkSync(npmPath);
+  if (fs.existsSync(npmBackupPath)) fs.unlinkSync(npmBackupPath);
+
+  fs.symlinkSync(smartDestPath, npmPath);
+  fs.symlinkSync(npmDestPath, npmBackupPath);
+
   // 判断有没新的 npm 文件，有的话全局安装成功，否则是本地安装，把原 npm 文件恢复
-  if (fs.existsSync(npmPath) || isInstalledByLink() || isWin) {
-    fs.renameSync(npmTmpPath, npmBackupPath);
-    renameMsg('Success', npmTmpPath, npmBackupPath);
-  } else {
-    fs.renameSync(npmTmpPath, npmPath);
-    renameMsg('Success', npmTmpPath, npmPath);
-  }
+  // if (fs.existsSync(npmPath) || isInstalledByLink() || isWin) {
+  //   fs.renameSync(npmTmpPath, npmBackupPath);
+  //   renameMsg('Success', npmTmpPath, npmBackupPath);
+  // } else {
+  //   fs.renameSync(npmTmpPath, npmPath);
+  //   renameMsg('Success', npmTmpPath, npmPath);
+  // }
 }
 
 /**
@@ -102,15 +111,23 @@ function postInstall() {
  *   - 不存在就将备份的 npm 恢复
  */
 function postUninstall() {
-  if (!fs.existsSync(npmPath) && fs.existsSync(npmBackupPath)) {
-    try {
-      fs.renameSync(npmBackupPath, npmPath);
-      renameMsg('Success', npmBackupPath, npmPath);
-    } catch (e) {
-      renameMsg('Error', npmBackupPath, npmPath);
-      process.exit(1);
-    }
-  }
+  if (fs.existsSync(npmPath)) fs.unlinkSync(npmPath);
+  if (fs.existsSync(npmBackupPath)) fs.unlinkSync(npmBackupPath);
+
+  fs.symlinkSync(npmDestPath, npmPath);
+  // if (!fs.existsSync(npmPath) && fs.existsSync(npmBackupPath)) {
+  //   try {
+  //     fs.renameSync(npmBackupPath, npmPath);
+  //     renameMsg('Success', npmBackupPath, npmPath);
+  //   } catch (e) {
+  //     renameMsg('Error', npmBackupPath, npmPath);
+  //     process.exit(1);
+  //   }
+  // }
+}
+
+function linkDest(linkfile) {
+  return path.resolve(path.dirname(linkfile), fs.readlinkSync(linkfile));
 }
 
 switch (process.argv[2]) {

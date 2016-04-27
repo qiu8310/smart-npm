@@ -50,17 +50,6 @@ __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `
 
 ## 安装
  
-__windows 用户安装后，体验没有原生的好，因为每次运行都会创建一个子程序，所以请慎装！__ 
-
-
-### Mac 或者 Linux 用户
-```bash
-# 先将系统的 npm 备份到 npm-original
-ln -s $(npm root -g)/npm/bin/npm-cli.js $(dirname $(which npm))/npm-original
-npm install --global smart-npm --registry=https://registry.npm.taobao.org/
-```
-
-### Window 用户请手动备份 npm.cmd 文件
 ```
 npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 ```
@@ -73,17 +62,16 @@ npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 ```bash
 
 # 备份系统默认的 npm 到 npm-original
-alias npm_backup='ln -s -i $(npm root -g)/npm/bin/npm-cli.js $(dirname $(which npm))/npm-original'
+alias smart_backup_npm='ln -s -i $(npm root -g)/npm/bin/npm-cli.js $(dirname $(which npm))/npm-original'
 
-# 恢复系统默认的 npm 
-alias npm_recover='ln -s -f $(npm root -g)/npm/bin/npm-cli.js $(dirname $(which npm))/npm'
+# 恢复系统默认的 npm
+alias smart_recover_npm='ln -s -f $(npm root -g)/npm/bin/npm-cli.js $(dirname $(which npm))/npm'
 
 # 重新启用 smart-npm
-alias npm_smart='ln -s -f $(npm root -g)/smart-npm/bin/smart-npm.js $(dirname $(which npm))/npm'
+alias smart_overwrite_npm='ln -s -f $(npm root -g)/smart-npm/bin/smart-npm.js $(dirname $(which npm))/npm'
 
 # 更新 smart-npm 中的 npm 版本
-alias npm_update='cd $(npm root -g)/smart-npm/ && npm update npm && cd -'
-
+alias smart_update_npm='cd $(npm root -g)/smart-npm/ && npm update npm && cd -'
 ```
 
 
