@@ -42,9 +42,9 @@ function isOriginalNpm(originalNpmFile) {
  *
  * @return {Boolean}
  */
-function isInstalledByLink() {
-  return false;
-}
+// function isInstalledByLink() {
+//   return false;
+// }
 
 /**
  * pre-install hook
@@ -129,7 +129,6 @@ function uninstall() {
 module.exports = {
   uninstall: uninstall
 };
-
 
 switch (process.argv[2]) {
   case 'preinstall': preInstall(); break;

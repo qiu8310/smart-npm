@@ -14,7 +14,7 @@ module.exports = function(parsedArgs) {
     console.error('\r\n\r\n\tUsage: npm smart (' + allows.join('|') + ')\r\n\r\n');
   } else if (sub === 'uninstall') {
     helper.uninstall();
-    console.log('Original npm recovered')
+    console.log('Original npm recovered');
     console.log('Please run `npm uninstall -g smart-npm` to proceed');
   }
 };
