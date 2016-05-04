@@ -47,18 +47,29 @@ __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `
 ###  就让 `smart-npm` 来为你完成吧！
 
 
+<a id="install"></a>
 ## 安装
  
 ```
 npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 ```
 
+如果 window 用户安装最新版本不成功的话，可以试试安装 smart-npm@1 ， 两者功能差不多是一样的，
+发布版本 2 的主要原因是由于 npm 的升级，使的在 mac 上无法通过 bin 别名的方式覆盖原来的 npm，
+只能通过先删除原来的 npm link 文件，再创建一个新的；但这种方式在 window 上可能会有问题，
+所以，如果你是 window 用户，并且通过上面脚本无法安装成功的话，可以用下面脚本再试试。
+
+```
+npm install --global smart-npm@1 --registry=https://registry.npm.taobao.org/
+```
+
+
 安装成功后默认会在你的 `npm` 用户配置文件 `~/.npmrc` 中添加淘宝的 registry。
 
 ## 卸载
 
 ```
-npm smart uninstall
+npm smart uninstall   # 2.x.x 版本的 smart-npm 在卸载前需要先执行此脚本
 npm uninstall --global smart-npm
 ```
 
