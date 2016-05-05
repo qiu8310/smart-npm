@@ -1,7 +1,7 @@
 {
   "name": "smart-npm",
   "description": "Auto switch registry according your npm command.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "homepage": "https://github.com/qiu8310/smart-npm",
   "bugs": "https://github.com/qiu8310/smart-npm/issues",
   "license": "MIT",

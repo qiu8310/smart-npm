@@ -1,4 +1,12 @@
 
+2.0.2 / 2016-05-05
+==================
+
+  * fix: 安装失败出一个友好的提醒
+  * docs: update install tip for window user
+  * fix: update node mirror env name
+  * fix lint
+
 2.0.0 / 2016-04-27
 ==================
 
