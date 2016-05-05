@@ -1,4 +1,5 @@
 var fs = require('fs'),
+  log = require('lac').logDeep,
   path = require('path');
 
 var isWin = process.platform === 'win32',
@@ -86,11 +87,20 @@ function preInstall() {
  *
  */
 function postInstall() {
-  if (fs.existsSync(npmPath)) fs.unlinkSync(npmPath);
-  if (fs.existsSync(npmBackupPath)) fs.unlinkSync(npmBackupPath);
+  try {
+    if (fs.existsSync(npmPath)) fs.unlinkSync(npmPath);
+    if (fs.existsSync(npmBackupPath)) fs.unlinkSync(npmBackupPath);
 
-  fs.symlinkSync(smartDestPath, npmPath);
-  fs.symlinkSync(npmDestPath, npmBackupPath);
+    fs.symlinkSync(smartDestPath, npmPath);
+    fs.symlinkSync(npmDestPath, npmBackupPath);
+  } catch (e) {
+    log('\n!%s!\n', '创建新的 npm 文件失败，原因: ' + e.message);
+    log('**如果你想用 smart-npm 替换原生的 npm，有如下方法可以尝试：**\n');
+    log('  *1. 如果你是 Unix 系统，你可以创建一个别名* %s *或将它写入你的* %s *文件*', '` alias smart-npm="npm" `', '^.bashrc^');
+    log('  *2. 手动将文件* ^%s^* 链接到文件* ^%s^', npmPath, smartDestPath);
+    log('  *3. 尝试安装 smart-npm@1 ：* ` npm install --global smart-npm@1 --registry=https://registry.npm.taobao.org/ `');
+    log('\n');
+  }
 
   // 判断有没新的 npm 文件，有的话全局安装成功，否则是本地安装，把原 npm 文件恢复
   // if (fs.existsSync(npmPath) || isInstalledByLink() || isWin) {
