@@ -29,7 +29,8 @@
     "lac": "0.0.8",
     "npm": "latest",
     "npm-check": "^5.2.1",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "snyk": "^1.17.1"
   },
   "devDependencies": {
     "coveralls": "^2.11.1",
@@ -54,6 +55,9 @@
     "postuninstall": "npm config delete registry",
     "docs": "jsdoc -c ./jsdoc.json ./README.md && echo 'code{padding: 2px 4px;font-size: 90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px;}' >> ./docs/styles/jsdoc-default.css",
     "coveralls": "gulp test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "test": "gulp test"
-  }
+    "test": "gulp test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
