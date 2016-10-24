@@ -29,11 +29,17 @@ if (subCmd && extendSubCommands[subCmd]) {
 
 // 第二个参数是 "--registry=..."
 if (parsedArgs.args.length === 2 && ['-v', '--version'].indexOf(parsedArgs.args[0]) >= 0) {
-  var npmVersion = require('npm/package.json').version
-  var smartVersion = require('../package.json').version
-
-  console.log('       npm:  %s', npmVersion)
-  console.log(' smart-npm:  %s', smartVersion)
+  if (parsedArgs.cmd === 'npm') {
+    // 子命令中取不到系统的 alias
+    // 所以虽然设置了 alias npm=smart-npm
+    // 子命令中的 npm 还是原生的 npm（window 系统除外）
+    spawn('npm', ['-v']).stdout
+      .on('data', function(data) {
+        outputVersions(data.toString().trim())
+      })
+  } else {
+    outputVersions(require('npm/package.json').version)
+  }
 } else if (createChild) {
   var child = spawn(parsedArgs.cmd, parsedArgs.args, {
     env: parsedArgs.env,
@@ -48,4 +54,10 @@ if (parsedArgs.args.length === 2 && ['-v', '--version'].indexOf(parsedArgs.args[
   child.on('exit', function(code, signal) {
     process.exit(code)
   })
+}
+
+function outputVersions(npmVersion) {
+  var smartVersion = require('../package.json').version
+  console.log('       npm:  %s', npmVersion)
+  console.log(' smart-npm:  %s', smartVersion)
 }

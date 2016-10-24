@@ -60,21 +60,21 @@ npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 
 * Linux 用户可以在 `~/.bashrc` 文件中加一行
 
-```
+```bash
 alias npm=smart-npm
 ```
 
 * Mac 用户可以在 `~/.bash_profile` 文件中加一行
 
-```
+```bash
 alias npm=smart-npm
 ```
 
-* Window 用户需要先定位到 `npm.cmd` 和 `smart-npm.cmd` 两个文件，然后用 `smart-npm.cmd` 替换 `npm.cmd` 即可（注意备份原来的 npm.cmd）
+* Window 用户需要先定位到 `npm.cmd` 和 `smart-npm.cmd` 两个文件，然后用 `smart-npm.cmd` 替换 `npm.cmd`（注意备份原来的 npm.cmd），同时注意修改下 `smart-npm.cmd` 文件里的路径，否则运行 npm 会报找不到文件错误（如果不明白，建议不要替换，直接使用 snpm 或 smart-npm）
 
 可以使用命令 `where smart-npm` 来定位到 `smart-npm.cmd` 文件所在的位置。如：在我的系统上执行 `where smart-npm` 的结果是：
 
-```
+```cmd
 C:\Users\Mora>where smart-npm
 C:\Program Files\nodejs\smart-npm
 C:\Program Files\nodejs\smart-npm.cmd
