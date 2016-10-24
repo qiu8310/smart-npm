@@ -9,7 +9,7 @@ node_js:
   - "0.11"
   - "0.10"
 after_script:
-  - npm run coveralls
+  - npm run coverage
 notifications:
   email:
     - qiuzhongleiabc@126.com

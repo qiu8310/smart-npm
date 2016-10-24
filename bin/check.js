@@ -1,4 +1,4 @@
-var locateBin = require('../lib/locate-bin');
+var locateBin = require('../lib/locate-bin')
 
 /**
  *
@@ -9,6 +9,6 @@ var locateBin = require('../lib/locate-bin');
  */
 
 module.exports = function(parsedArgs) {
-  parsedArgs.cmd = locateBin('npm-check');
-  return true;
-};
+  parsedArgs.cmd = locateBin('npm-check')
+  return true
+}
