@@ -1,7 +1,7 @@
 {
   "name": "smart-npm",
   "description": "Auto switch registry according your npm command.",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "homepage": "https://github.com/qiu8310/smart-npm",
   "bugs": "https://github.com/qiu8310/smart-npm/issues",
   "license": "MIT",
@@ -25,15 +25,15 @@
     "taobao"
   ],
   "dependencies": {
-    "cross-spawn": "^0.2.8",
+    "cross-spawn": "4.0.2",
     "lac": "0.0.8",
     "npm": "latest",
-    "npm-check": "^5.2.1",
+    "npm-check": "5.4.0",
     "open": "0.0.5"
   },
   "devDependencies": {
-    "coveralls": "^2.11.1",
-    "gulp": "^3.8.8",
+    "coveralls": "2.11.14",
+    "gulp": "3.9.1",
     "gulp-bump": "^0.3.0",
     "gulp-istanbul": "^0.8.1",
     "gulp-jscs": "^1.5.2",
@@ -43,14 +43,14 @@
     "gulp-plumber": "^1.0.0",
     "gulp-util": "^3.0.1",
     "jshint-stylish": "^1.0.1",
-    "should": "^6.0.1"
+    "should": "11.1.1"
   },
   "bin": {
-    "smart-npm": "bin/smart-npm.js"
+    "smart-npm": "bin/smart-npm.js",
+    "snpm": "bin/smart-npm.js"
   },
   "scripts": {
     "preinstall": "npm config set registry https://registry.npm.taobao.org/",
-    "postinstall": "node scripts/helper.js postinstall",
     "postuninstall": "npm config delete registry",
     "docs": "jsdoc -c ./jsdoc.json ./README.md && echo 'code{padding: 2px 4px;font-size: 90%;color:#c7254e;background-color:#f9f2f4;border-radius:4px;}' >> ./docs/styles/jsdoc-default.css",
     "coveralls": "gulp test && cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",

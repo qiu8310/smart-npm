@@ -10,8 +10,7 @@ var createChild = true, // 是否新创建一个子程序
   extendSubCommands = {
     stats: 1,
     user: 1,
-    check: 1,
-    smart: 1
+    check: 1
   };
 
 var subCmd = parsedArgs.rest.length && parsedArgs.rest[0];

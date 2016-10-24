@@ -15,7 +15,6 @@
 
 [github 地址](https://github.com/qiu8310/smart-npm)
 
-__通知：新发布的 1.0.0 版本去掉了 `cnpm` 模块，详情查看 [Changelog](CHANGELOG.md#100--2015-04-08)__
 
 
 ## 背景
@@ -54,65 +53,54 @@ __所以，我们就需要一个更智能的 `npm` 了，可以在我们使用 `
 npm install --global smart-npm --registry=https://registry.npm.taobao.org/
 ```
 
-如果 window 用户安装最新版本不成功的话，可以试试安装 smart-npm@1 ， 两者功能差不多是一样的，
-发布版本 2 的主要原因是由于 npm 的升级，使的在 mac 上无法通过 bin 别名的方式覆盖原来的 npm，
-只能通过先删除原来的 npm link 文件，再创建一个新的；但这种方式在 window 上可能会有问题，
-所以，如果你是 window 用户，并且通过上面脚本无法安装成功的话，可以用下面脚本再试试。
-
-```
-npm install --global smart-npm@1 --registry=https://registry.npm.taobao.org/
-```
-
-
 安装成功后默认会在你的 `npm` 用户配置文件 `~/.npmrc` 中添加淘宝的 registry。
+
+<a id="replace"></a>
+**另外建议安装后替换原生的 npm 命令：**
+
+* Linux 用户可以在 `~/.bashrc` 文件中加一行
+
+```
+alias npm=smart-npm
+```
+
+* Mac 用户可以在 `~/.bash_profile` 文件中加一行
+
+```
+alias npm=smart-npm
+```
+
+* Window 用户需要先定位到 `npm.cmd` 和 `smart-npm.cmd`，然后用 `smart-npm.cmd` 替换 `npm.cmd`
+
+可以使用命令 `where smart-npm` 来定位到 `smart-npm.cmd` 的目录，如在我的系统上执行 `where smart-npm` 的结果是：
+
+```
+C:\Users\Mora>where smart-npm
+C:\Program Files\nodejs\smart-npm
+C:\Program Files\nodejs\smart-npm.cmd
+```
+
+同理可以定位到 `npm.cmd` 的位置
 
 ## 卸载
 
 ```
-npm smart uninstall   # 2.x.x 版本的 smart-npm 在卸载前需要先执行此脚本
 npm uninstall --global smart-npm
-```
-
-要先执行 `npm smart uninstall` 是因为如果直接执行 npm uninstall 会导致找不到 npm 文件
-
-
-### 几个不错的 alias
-
-```bash
-
-# 备份系统默认的 npm 到 npm-original
-alias smart_backup_npm='ln -s -i $(npm root -g)/npm/bin/npm-cli.js $(dirname $(which npm))/npm-original'
-
-# 恢复系统默认的 npm
-alias smart_recover_npm='ln -s -f $(npm root -g)/npm/bin/npm-cli.js $(dirname $(which npm))/npm'
-
-# 重新启用 smart-npm
-alias smart_overwrite_npm='ln -s -f $(npm root -g)/smart-npm/bin/smart-npm.js $(dirname $(which npm))/npm'
-
-# 更新 smart-npm 中的 npm 版本
-alias smart_update_npm='cd $(npm root -g)/smart-npm/ && npm update npm && cd -'
-```
-
-
-### Mac 或 Linux 用户可以使用下面命令恢复之前备份的 npm
-
-```
-mv $(which npm-original) $(dirname $(which npm-original))/npm
 ```
 
 
 ## 使用
 
-* 安装后系统的 `npm` 会被替换了，如果你要使用原生的 `npm` 命令，可以用 `npm-original` 代替。
+**安装后，你可以使用命令 `snpm` 或 `smart-npm`，如果你按[上面的方法](#replace)替换了原生的 `npm`，那么你也可以直接使用 `npm`**
 
-* 新的 `npm` 会自动根据你使用的命令切换 registry：当你使用 `publish`, `config`, `adduser`, `star` 等（[click here to see more][npm-cmds]）
+* 新的 `snpm` 会自动根据你使用的命令切换 registry：当你使用 `publish`, `config`, `adduser`, `star` 等（[click here to see more][npm-cmds]）
   命令时，会强制使用官方的 registry `https://registry.npmjs.org`；当你使用其它命令时，都会使用淘宝的镜像 `https://registry.npm.taobao.org/`。
 
   - 如果要强制使用某个 registry 时，只要在命令后面添加 registry 参数即可，比如，
-    `npm install jquery --registry=https://r.cnpmjs.org` 就会使用你指定的 registry 去拉取 `jquery`
+    `snpm install jquery --registry=https://r.cnpmjs.org` 就会使用你指定的 registry 去拉取 `jquery`
     
   - 如果要强制使用官方的 registry， 只要在命令后面加上 `--npm` 即可，
-    比如， `npm install jquery --npm` 就会使用官方的 registry 去拉取 `jquery`，（当镜像没有及时更新时，用此会选项很有效）
+    比如， `snpm install jquery --npm` 就会使用官方的 registry 去拉取 `jquery`，（当镜像没有及时更新时，用此会选项很有效）
     
   - 如果你想修改默认的淘宝镜像或者官方的 registry，可以在你的环境变量中添加这两个参数：
     `NPM_OFFICIAL_REGISTRY`， `NPM_MIRROR_REGISTRY`，以此来修改默认的官方 registry 和 淘宝镜像 registry。
