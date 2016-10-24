@@ -2,14 +2,20 @@ language: node_js
 env: CI=true
 sudo: false
 
+os:
+  - linux
+  - osx
+
 node_js:
-  - "5.3"
-  - "4.2"
+  - "6"
+  - "4"
   - "0.12"
   - "0.11"
   - "0.10"
+
 after_script:
   - npm run coverage
+
 notifications:
   email:
     - qiuzhongleiabc@126.com
