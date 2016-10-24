@@ -1,4 +1,12 @@
 
+3.0.0 / 2016-10-24
+==================
+
+  * 使用 eslint，去除 gulp
+  * 不再自动替换原生的 npm，需手动替换
+  * Merge pull request #8 from qiu8310/snyk-fix-93286977
+  * fix: package.json & .snyk to reduce vulnerabilities
+
 2.0.2 / 2016-05-05
 ==================
 
