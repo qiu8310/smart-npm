@@ -1,7 +1,7 @@
 {
   "name": "smart-npm",
   "description": "Auto switch registry according your npm command.",
-  "version": "3.0.0",
+  "version": "2.0.2",
   "homepage": "https://github.com/qiu8310/smart-npm",
   "bugs": "https://github.com/qiu8310/smart-npm/issues",
   "license": "MIT",
@@ -28,7 +28,8 @@
     "cross-spawn": "4.0.2",
     "npm": "latest",
     "npm-check": "5.4.0",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "snyk": "^1.17.1"
   },
   "devDependencies": {
     "codecov": "1.0.1",
@@ -53,5 +54,6 @@
     "test:istanbul": "istanbul cover --report html --dir externals/coverage _mocha test/*.js",
     "test:report": "npm run test && npm run report",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
-  }
+  },
+  "snyk": true
 }
