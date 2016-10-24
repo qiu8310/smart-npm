@@ -70,9 +70,9 @@ alias npm=smart-npm
 alias npm=smart-npm
 ```
 
-* Window 用户需要先定位到 `npm.cmd` 和 `smart-npm.cmd`，然后用 `smart-npm.cmd` 替换 `npm.cmd`
+* Window 用户需要先定位到 `npm.cmd` 和 `smart-npm.cmd` 两个文件，然后用 `smart-npm.cmd` 替换 `npm.cmd` 即可（注意备份原来的 npm.cmd）
 
-可以使用命令 `where smart-npm` 来定位到 `smart-npm.cmd` 的目录，如在我的系统上执行 `where smart-npm` 的结果是：
+可以使用命令 `where smart-npm` 来定位到 `smart-npm.cmd` 文件所在的位置。如：在我的系统上执行 `where smart-npm` 的结果是：
 
 ```
 C:\Users\Mora>where smart-npm
@@ -108,11 +108,11 @@ npm uninstall --global smart-npm
 
 ### `smart-npm` 扩展的几个新命令
 
-* __`npm check`__： 由 [npm-check](https://github.com/dylang/npm-check) 提供，和 `npm outdated` 类似，但提示更人性化，同时它也支持自动更新依赖
+* __`snpm check`__： 由 [npm-check](https://github.com/dylang/npm-check) 提供，和 `npm outdated` 类似，但提示更人性化，同时它也支持自动更新依赖
 
-* __`npm stats {package}`__： 打开一个网页，可以看到 package 的统计数据，包括被下载的次数、最近更新时间、被依赖的次数及排名等数据
+* __`snpm stats {package}`__： 打开一个网页，可以看到 package 的统计数据，包括被下载的次数、最近更新时间、被依赖的次数及排名等数据
 
-* __`npm user {package}`__： 打开一个网页，跳到用户的 `npm` 上的个人主页，如果加了参数 `-t`，则是跳到淘宝镜像的个人主页
+* __`snpm user {package}`__： 打开一个网页，跳到用户的 `npm` 上的个人主页，如果加了参数 `-t`，则是跳到淘宝镜像的个人主页
 
 
 ### 比较有用但很少被用的一些 `npm` 的命令
