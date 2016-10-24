@@ -25,7 +25,7 @@
     "taobao"
   ],
   "dependencies": {
-    "cross-spawn": "^0.2.8",
+    "cross-spawn": "^4.0.2",
     "lac": "0.0.8",
     "npm": "latest",
     "npm-check": "^5.2.1",
@@ -35,16 +35,16 @@
   "devDependencies": {
     "coveralls": "^2.11.1",
     "gulp": "^3.8.8",
-    "gulp-bump": "^0.3.0",
-    "gulp-istanbul": "^0.8.1",
-    "gulp-jscs": "^1.5.2",
-    "gulp-jshint": "^1.9.4",
-    "gulp-load-plugins": "^0.10.0",
-    "gulp-mocha": "^2.0.1",
+    "gulp-bump": "^2.4.0",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-jscs": "^4.0.0",
+    "gulp-jshint": "^2.0.1",
+    "gulp-load-plugins": "^1.3.0",
+    "gulp-mocha": "^3.0.1",
     "gulp-plumber": "^1.0.0",
     "gulp-util": "^3.0.1",
-    "jshint-stylish": "^1.0.1",
-    "should": "^6.0.1"
+    "jshint-stylish": "^2.2.1",
+    "should": "^11.1.1"
   },
   "bin": {
     "smart-npm": "bin/smart-npm.js"
