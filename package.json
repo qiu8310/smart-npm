@@ -37,7 +37,7 @@
     "eslint": "3.16.0",
     "mocha": "3.1.2",
     "nyc": "8.3.2",
-    "should": "11.1.1"
+    "should": "11.2.0"
   },
   "bin": {
     "smart-npm": "bin/smart-npm.js",
