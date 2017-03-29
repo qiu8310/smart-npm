@@ -1,4 +1,14 @@
 
+3.0.1 / 2017-03-29
+==================
+  
+  * 修复使用 yarn 安装 smart-npm 时找不到 npm 的问题
+  * Merge pull request #42 from qiu8310/greenkeeper-eslint-3.16.0
+  * chore(package): update eslint to version 3.16.0
+  * add os for travis
+  * 添加 --system 选项，支持 Unix 用户使用系统的 npm
+  * update doc
+
 3.0.0 / 2016-10-24
 ==================
 
