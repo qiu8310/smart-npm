@@ -1,4 +1,6 @@
 # smart-npm
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/qiu8310/smart-npm.svg)](https://greenkeeper.io/)
 [![NPM version](https://badge.fury.io/js/smart-npm.svg)](https://npmjs.org/package/smart-npm)
 [![GitHub version][git-tag-image]][project-url]
 [![Build Status][travis-image]][travis-url]
