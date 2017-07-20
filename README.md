@@ -84,6 +84,15 @@ C:\Program Files\nodejs\smart-npm.cmd
 
 同理可以定位到 `npm.cmd` 的位置
 
+## 使用指定版本的 npm
+
+smart-npm 使用的是内部的 npm，和系统的 npm 没有任何关系
+
+```
+snpm install-npm          # 安装最新版的 npm
+snpm install-npm 4        # 安装 4.x.x 版本的 npm
+```
+
 ## 卸载
 
 ```

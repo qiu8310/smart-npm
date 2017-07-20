@@ -10,7 +10,8 @@ var createChild = true // 是否新创建一个子程序
 var extendSubCommands = {
   stats: 1,
   user: 1,
-  check: 1
+  check: 1,
+  'install-npm': 1
 }
 
 var subCmd = parsedArgs.rest.length && parsedArgs.rest[0]
