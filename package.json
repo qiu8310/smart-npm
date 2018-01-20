@@ -34,7 +34,7 @@
   "devDependencies": {
     "codecov": "2.1.0",
     "coveralls": "2.13.1",
-    "eslint": "3.19.0",
+    "eslint": "4.16.0",
     "mocha": "3.3.0",
     "nyc": "10.3.0",
     "should": "11.2.1"
