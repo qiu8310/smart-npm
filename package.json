@@ -25,7 +25,7 @@
     "taobao"
   ],
   "dependencies": {
-    "cross-spawn": "5.1.0",
+    "cross-spawn": "6.0.0",
     "npm": "latest",
     "npm-check": "5.4.0",
     "open": "0.0.5",
