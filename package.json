@@ -28,7 +28,7 @@
     "cross-spawn": "5.1.0",
     "npm": "latest",
     "npm-check": "5.4.0",
-    "open": "0.0.5",
+    "open": "6.0.0",
     "snyk": "^1.17.1"
   },
   "devDependencies": {
