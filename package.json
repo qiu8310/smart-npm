@@ -29,7 +29,7 @@
     "npm": "latest",
     "npm-check": "5.4.0",
     "open": "0.0.5",
-    "snyk": "^1.17.1"
+    "snyk": "^1.319.0"
   },
   "devDependencies": {
     "codecov": "2.1.0",
@@ -53,7 +53,9 @@
     "report": "nyc report --reporter=html",
     "test:istanbul": "istanbul cover --report html --dir externals/coverage _mocha test/*.js",
     "test:report": "npm run test && npm run report",
-    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "snyk": true
 }
