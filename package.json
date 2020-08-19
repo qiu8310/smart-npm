@@ -27,7 +27,7 @@
   "dependencies": {
     "cross-spawn": "5.1.0",
     "npm": "latest",
-    "npm-check": "5.4.0",
+    "npm-check": "5.4.4",
     "open": "0.0.5",
     "snyk": "^1.17.1"
   },
